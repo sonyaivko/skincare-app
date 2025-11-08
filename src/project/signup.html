@@ -8,7 +8,9 @@
     <main>
       <h1>Sign Up</h1>
 
-      <form action="index.html" method="get">
+      <form id="signupForm">
+        <p id="message" style="color:red; margin-top:10px;"></p>
+
         <div>
           <label for="firstname">First Name</label><br />
           <input type="text" id="firstname" name="firstname" required />
@@ -46,5 +48,55 @@
 
       <p>Already have an account? <a href="./index.html">Log In</a></p>
     </main>
+
+
+    <script type="module">
+      import { app } from './firebase-init.js';
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+        updateProfile
+      } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+      const auth = getAuth(app);
+      const form = document.getElementById("signupForm");
+      const message = document.getElementById("message");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const firstName = document.getElementById("firstname").value.trim();
+        const lastName = document.getElementById("lastname").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirm-password").value;
+
+        // Basic validation
+        if (password !== confirmPassword) {
+          message.textContent = "Passwords do not match.";
+          return;
+        }
+
+        try {
+          // Create user
+          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+          const user = userCredential.user;
+
+          // Add first + last name to user profile
+          await updateProfile(user, {
+            displayName: `${firstName} ${lastName}`
+          });
+
+          message.style.color = "green";
+          message.textContent = "Account created! Redirecting...";
+          setTimeout(() => window.location.href = "index.html", 1500);
+        } catch (error) {
+          message.style.color = "red";
+          message.textContent = error.message;
+        }
+      });
+    </script>
+
   </body>
 </html>
+
