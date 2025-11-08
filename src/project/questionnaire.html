@@ -100,34 +100,45 @@
     <button type = "submit">Submit Answers</button>
     </form>
   </div>
-<script>
-  document.getElementById("q-form").addEventListener("submit", (e) => {
+  <script>
+    document.getElementById("q-form").addEventListener("submit", (e) => {
       e.preventDefault();
-
-      // Initialize scores
+  
+      const totalQuestions = 12;
       let scores = { dry: 0, oily: 0, combo: 0 };
-
-      // Loop through questions
-      for (let i = 1; i <= 12; i++) {
+  
+      // Count how many questions have been answered
+      let answeredCount = 0;
+  
+      for (let i = 1; i <= totalQuestions; i++) {
         const answer = document.querySelector(`input[name="q${i}"]:checked`);
         if (answer) {
-          scores[answer.value]++; // Add 1 to the selected skin type
+          answeredCount++;
+          scores[answer.value]++;
         }
       }
-
+  
+      // check if all answered
+      if (answeredCount < totalQuestions) {
+        alert(`Please answer all ${totalQuestions} questions before submitting.`);
+        return; // stop form submission
+      }
+  
+      // Sort scores to determine top skin type
       const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
       const [topType, topScore] = sorted[0];
       const [secondType, secondScore] = sorted[1];
-
-      let skinType = topType; 
-
-      //if top two types have the same score, combine them
+  
+      let skinType = topType;
+  
+      // If top two types are close, combine them
       if (secondScore > 0 && Math.abs(topScore - secondScore) <= 1) {
-          skinType = `${topType}-${secondType}`;
+        skinType = `${topType}-${secondType}`;
       }
-      // Store result in localStorage so results.html can access it
+  
+      // Store result
       localStorage.setItem("skinType", skinType);
-
+  
       // Redirect to results page
       window.location.href = `results.html?type=${skinType}`;
     });
