@@ -5,18 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Welcome - Make Skin Better</title>
     <link rel="stylesheet" href="./style.css" />
+
+    <script defer src="./face-api.min.js"></script>
+    <script defer type="module" src="./script.js"></script>
   </head>
   <body>
     <main>
       <h1 id="welcome-message">Welcome!</h1>
       <p>Glad to have you back!</p>
 
-      <!-- Existing buttons -->
       <button id="survey-btn">Take the Skin Questionnaire</button>
       <button id="logout-btn">Log Out</button>
-
-      <!-- 🆕 New button for face scan -->
       <button id="scan-face-btn">Scan Face</button>
+      <button id="see-result-btn" style="display: none; margin-top: 12px">
+        See Result
+      </button>
+
+      <!-- Video area (hidden until user clicks Scan Face) -->
+      <div id="video-container" style="display: none; margin-top: 12px">
+        <video
+          id="video"
+          width="600"
+          height="450"
+          autoplay
+          muted
+          playsinline
+        ></video>
+        <canvas id="overlay" width="600" height="450"></canvas>
+      </div>
     </main>
 
     <script type="module">
@@ -31,9 +47,9 @@
       const message = document.getElementById("welcome-message");
       const logoutBtn = document.getElementById("logout-btn");
       const surveyBtn = document.getElementById("survey-btn");
-      const scanBtn = document.getElementById("scan-face-btn"); // 👈 added
+      const scanBtn = document.getElementById("scan-face-btn");
+      const videoBox = document.getElementById("video-container");
 
-      // Check if the user is logged in
       onAuthStateChanged(auth, (user) => {
         if (user) {
           const name = user.displayName || user.email;
@@ -43,28 +59,20 @@
         }
       });
 
-      // Redirect to questionnaire page
       surveyBtn.addEventListener("click", () => {
         window.location.href = "questionnaire.html";
       });
 
-      // Log out
       logoutBtn.addEventListener("click", async () => {
         await signOut(auth);
         window.location.href = "index.html";
       });
 
-      // 🆕 Temporary Scan Face logic
+      // Show video area and start webcam when Scan Face is clicked
       scanBtn.addEventListener("click", () => {
-        navigator.mediaDevices
-          .getUserMedia({ video: true })
-          .then((stream) => {
-            console.log("Camera enabled — face scan feature coming soon!");
-            // Later: show video preview & run face-api detection here
-          })
-          .catch((err) => {
-            console.error("Camera permission denied:", err);
-          });
+        videoBox.style.display = "block";
+        // startWebCam() is defined in script.js
+        window.startWebCam?.();
       });
     </script>
   </body>
