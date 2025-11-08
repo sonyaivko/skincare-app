@@ -11,7 +11,7 @@
       <h1>Log In</h1>
 
       <form id="loginForm">
-        <p id="message" style="color:red; margin-top:10px;"></p>
+        <p id="message" style="color: red; margin-top: 10px"></p>
         <div>
           <label for="username">Username</label><br />
           <input type="email" id="username" name="username" required />
@@ -33,28 +33,30 @@
     <script type="module">
       // Import
       import { app } from "./firebase-init.js";
-      import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+      import {
+        getAuth,
+        signInWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
       const auth = getAuth(app);
       const form = document.getElementById("loginForm");
       const message = document.getElementById("message");
-    
-        form.addEventListener("submit", async (e) => {
-          e.preventDefault();
-          const email = document.getElementById("username").value;
-          const password = document.getElementById("password").value;
-    
-          try {
-            await signInWithEmailAndPassword(auth, email, password);
-            message.style.color = "green";
-            message.textContent = "Login successful! Redirecting...";
-            setTimeout(() => window.location.href = "questionnaire.html", 1000);
-          } catch (error) {
-            message.style.color = "red";
-            message.textContent = error.message;
-          }
-        });
-      </script>
 
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        try {
+          await signInWithEmailAndPassword(auth, email, password);
+          message.style.color = "green";
+          message.textContent = "Login successful! Redirecting...";
+          setTimeout(() => (window.location.href = "welcome.html"), 1000);
+        } catch (error) {
+          message.style.color = "red";
+          message.textContent = error.message;
+        }
+      });
+    </script>
   </body>
 </html>
