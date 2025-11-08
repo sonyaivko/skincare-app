@@ -6,6 +6,7 @@
     <title>Welcome - Make Skin Better</title>
     <link rel="stylesheet" href="./style.css" />
 
+    <!-- Face scan scripts -->
     <script defer src="./face-api.min.js"></script>
     <script defer type="module" src="./script.js"></script>
   </head>
@@ -47,8 +48,6 @@
       const message = document.getElementById("welcome-message");
       const logoutBtn = document.getElementById("logout-btn");
       const surveyBtn = document.getElementById("survey-btn");
-      const scanBtn = document.getElementById("scan-face-btn");
-      const videoBox = document.getElementById("video-container");
 
       onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -59,21 +58,19 @@
         }
       });
 
+      // Go to questionnaire
+      // NOTE: make sure the filename matches your actual file ("questionnaire.html" vs "questionaire.html")
       surveyBtn.addEventListener("click", () => {
         window.location.href = "questionnaire.html";
       });
 
+      // Log out
       logoutBtn.addEventListener("click", async () => {
         await signOut(auth);
         window.location.href = "index.html";
       });
 
-      // Show video area and start webcam when Scan Face is clicked
-      scanBtn.addEventListener("click", () => {
-        videoBox.style.display = "block";
-        // startWebCam() is defined in script.js
-        window.startWebCam?.();
-      });
+      // No scan-face handler here — script.js handles scanning.
     </script>
   </body>
 </html>
