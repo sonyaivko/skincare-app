@@ -1,3 +1,3 @@
 # skincare-app
 
-AI powered skincare recommendations and analysis app
+HackUMass project that requires a email/pwd login to access skin analysis. 
