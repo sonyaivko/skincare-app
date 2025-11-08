@@ -1,46 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Your Skin Result</title>
-    <link rel="stylesheet" href="./style.css" />
-  </head>
-  <body>
-    <main id="root">
-      <!-- Content will be injected -->
-    </main>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Skin Result</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="card">
+    <h1>Your Scan Result</h1>
 
-    <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        const type = localStorage.getItem("skinType");
-        const desc = localStorage.getItem("skinDescription");
-        const shine = localStorage.getItem("shinePct");
-        const root = document.getElementById("root");
+    <div id="results"></div>
 
-        if (!type || !desc) {
-          root.innerHTML = `
+    <button onclick="window.location.href='welcome.html'">Back to Welcome Page</button>
+  </div>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const type = localStorage.getItem("skinType");
+      const desc = localStorage.getItem("skinDescription");
+      const shine = localStorage.getItem("shinePct");
+      const resultsDiv = document.getElementById("results");
+
+      if (!type || !desc) {
+        resultsDiv.innerHTML = `
           <h2>No scan results found</h2>
           <p>Please go back and scan your face again.</p>
-          <a href="welcome.html">Return</a>
+          <a href="welcome.html" class="btn">Return</a>
         `;
-          return;
-        }
+        return;
+      }
 
-        root.innerHTML = `
+      resultsDiv.innerHTML = `
         <section class="result">
           <p style="opacity:.7;margin-bottom:.5rem;">
             Detected type: <strong>${type}</strong>${
-          shine ? ` &nbsp;•&nbsp; Shine index: ${shine}%` : ""
-        }
+              shine ? ` &nbsp;•&nbsp; Shine index: ${shine}%` : ""
+            }
           </p>
           ${desc}
         </section>
       `;
-      });
-    </script>
-    
-  <button onclick="window.location.href='welcome.html'">Back to Welcome Page</button>
-
-  </body>
+    });
+  </script>
+</body>
 </html>
+

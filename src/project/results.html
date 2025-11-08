@@ -3,10 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>Your Skin Type</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Your Result:</h1>
-  <div id="results"></div>
+  <div class="card">
+    <h1>Your Result:</h1>
+    <div id="results"></div>
+
+    <button class="back-button" onclick="window.location.href='welcome.html'">
+      Back to Welcome Page
+    </button>
+  </div>
 
   <script>
     // Retrieve stored result
@@ -14,94 +21,75 @@
     const type = params.get("type") || localStorage.getItem("skinType");
     const resultDiv = document.getElementById("results");
 
-    //Storing different result messages 
-
+    // All possible result messages
     const results = {
       dry: `
         <h2>Dry Skin</h2>
-        <p>If most of your answers point to dry skin, your skin produces less natural oil and can often feel tight, rough, or flaky, especially in colder weather. The key is to restore and lock in moisture.</p>
+        <p>Your skin produces less natural oil and often feels tight, rough, or flaky. The key is to restore and lock in moisture.</p>
         <ul>
-          <li>Start your day with a gentle, creamy cleanser that won’t strip away hydration, followed by a toner or essence rich in hyaluronic acid or glycerin.</li>
-          <li>Use a thick, nourishing moisturizer and finish with a hydrating sunscreen.</li>
-          <li>At night, cleanse again softly, apply a hyaluronic-acid or niacinamide serum, and seal everything in with a richer cream or an overnight mask.</li>
-          <li>A few drops of facial oil in winter can make a big difference.</li>
+          <li>Start your day with a gentle, creamy cleanser.</li>
+          <li>Use a rich moisturizer and a hydrating SPF.</li>
+          <li>At night, apply a hydrating serum and seal it in with a heavier cream.</li>
         </ul>
-        <p>Your lifestyle can also aid in making your skin better!</p>
-        <ul>
-          <li>Drink plenty of water, avoid long hot showers, and consider using a humidifier.</li>
-          <li>Foods rich in healthy fats like salmon, avocado, and nuts help your skin from within.</li>
-        </ul>
-        <p><strong>Popular picks:</strong> CeraVe Hydrating Cleanser, Neutrogena Hydro Boost Gel Cream, The Ordinary Hyaluronic Acid Serum, EltaMD UV Daily SPF 40.</p>
+        <p><strong>Popular picks:</strong> CeraVe Hydrating Cleanser, Neutrogena Hydro Boost, The Ordinary Hyaluronic Acid, EltaMD UV Daily SPF 40.</p>
       `,
       oily: `
         <h2>Oily Skin</h2>
-        <p>If your answers lean toward oily skin, your skin naturally produces more sebum, leading to shine and occasional breakouts. The goal is to balance oil without stripping the skin.</p>
+        <p>Your skin produces more sebum, leading to shine and breakouts. The goal is to balance oil without stripping.</p>
         <ul>
-          <li>Use a foaming or gel-based cleanser to remove excess oil, followed by a lightweight, oil-free moisturizer to keep your skin hydrated without heaviness.</li>
-          <li>Always wear sunscreen; many matte finishes work well for oily skin.</li>
-          <li>At night, double-cleanse if you wear makeup and apply a serum containing niacinamide or salicylic acid to reduce oil buildup and minimize pores.</li>
-          <li>Exfoliate 2–3 times a week with a gentle BHA to prevent clogged pores, and try to avoid touching your face throughout the day.</li>
+          <li>Use a foaming cleanser and lightweight moisturizer.</li>
+          <li>Try niacinamide or salicylic acid serums.</li>
+          <li>Always wear a matte-finish sunscreen.</li>
         </ul>
-        <p>A balanced diet, regular exercise, and stress management all help regulate oil production.</p>
-        <p><strong>Popular picks:</strong> La Roche-Posay Effaclar Gel Cleanser, CeraVe Foaming Cleanser, The Ordinary Niacinamide 10% + Zinc, COSRX Oil-Free Moisturizer, Supergoop! Unseen SPF 40.</p>
+        <p><strong>Popular picks:</strong> La Roche-Posay Effaclar, CeraVe Foaming Cleanser, The Ordinary Niacinamide 10% + Zinc, Supergoop! Unseen SPF 40.</p>
       `,
       combo: `
         <h2>Combination Skin</h2>
-        <p>If you selected mostly combination-type answers, your skin behaves differently in different areas: oily on the T-zone (forehead, nose, chin) and dry on the cheeks or jawline. The goal is to maintain balance.</p>
+        <p>You have an oily T-zone and dry cheeks — balance is key.</p>
         <ul>
-          <li>Choose a gentle, low-foam cleanser that removes oil but doesn’t dry out your skin.</li>
-          <li>Apply a light, hydrating moisturizer in the morning and use a richer cream only on dry areas at night.</li>
-          <li>Layering different products for different zones can be very effective — for example, mattifying gel on the T-zone and a soothing cream on the cheeks.</li>
-          <li>Once or twice a week, exfoliate gently to remove buildup and use clay masks on oily areas and hydrating masks elsewhere.</li>
-          <li>Keep your routine flexible with the seasons — your skin may act more dry in winter and more oily in summer.</li>
+          <li>Use a gentle, low-foam cleanser.</li>
+          <li>Hydrate evenly, but apply heavier cream on dry areas.</li>
+          <li>Target oil control on the T-zone only.</li>
         </ul>
-        <p><strong>Popular picks:</strong> CeraVe Hydrating Foam Cleanser, Paula’s Choice Pore-Refining Toner, Neutrogena Hydro Boost Water Gel, Laneige Cream Skin Refiner, Eucerin Oil Control SPF 50.</p>
+        <p><strong>Popular picks:</strong> CeraVe Hydrating Foam Cleanser, Neutrogena Hydro Boost, Eucerin Oil Control SPF 50.</p>
       `,
       "dry-oily": `
         <h2>Dry + Oily Skin</h2>
-        <p>Your results show a mix of both dry and oily skin characteristics. This means your skin might feel tight or flaky in some areas but produce excess oil or shine in others. The key is balance and gentle care.</p>
+        <p>Your skin is dry in some spots and oily in others — focus on balance.</p>
         <ul>
-          <li>Don’t over-dry your skin in an effort to reduce oil, and don’t overload it with heavy creams either.</li>
-          <li>Try using a mild foaming or gel cleanser that removes oil without stripping moisture, then follow with a lightweight, hydrating moisturizer that contains ingredients like hyaluronic acid or ceramides.</li>
-          <li>If certain areas are especially dry, you can add a richer cream just there.</li>
-          <li>Use mattifying products only on oily zones (like the T-zone) and avoid alcohol-based toners.</li>
-          <li>Consistent hydration will actually help your skin regulate oil production naturally.</li>
+          <li>Use a mild gel cleanser and lightweight hydrating moisturizer.</li>
+          <li>Apply richer cream only to dry zones.</li>
+          <li>Avoid over-drying or heavy products.</li>
         </ul>
-        <p><strong>Popular Picks:</strong> CeraVe Hydrating Foaming Cleanser, Neutrogena Hydro Boost Water Gel, The Ordinary Niacinamide 10% + Zinc, and EltaMD UV Clear SPF 46.</p>
+        <p><strong>Popular Picks:</strong> CeraVe Hydrating Foaming Cleanser, Neutrogena Hydro Boost, EltaMD UV Clear SPF 46.</p>
       `,
       "dry-combo": `
         <h2>Dry + Combination Skin</h2>
-        <p>If your answers were split between dry and combination, your skin leans mostly dry but still shows some oiliness in specific areas, especially the T-zone. Focus on deep hydration while keeping balance.</p>
+        <p>Mostly dry, but with some oiliness — focus on deep hydration and balance.</p>
         <ul>
-          <li>Choose a creamy cleanser that nourishes dry spots and a lighter gel moisturizer for oilier areas.</li>
-          <li>Layering works best — apply a hydrating toner or serum with hyaluronic acid all over, then seal with a richer moisturizer on the driest zones.</li>
-          <li>Avoid over-exfoliating, as it can worsen dryness and stimulate more oil in other areas.</li>
-          <li>Using a hydrating mask once or twice a week will help even out your texture and make your skin feel smoother overall.</li>
+          <li>Use creamy cleansers and hydrating toners.</li>
+          <li>Layer hyaluronic serum and richer moisturizer on dry zones.</li>
+          <li>Avoid over-exfoliating.</li>
         </ul>
-        <p><strong>Popular Picks:</strong> La Roche-Posay Toleriane Hydrating Cleanser, COSRX Hydrium Watery Toner, and CeraVe Moisturizing Cream for targeted areas.</p>
+        <p><strong>Popular Picks:</strong> La Roche-Posay Toleriane, COSRX Hydrium Watery Toner, CeraVe Moisturizing Cream.</p>
       `,
       "oily-combo": `
         <h2>Oily + Combination Skin</h2>
-        <p>You have a blend of oily and combination skin, meaning your skin tends to produce more oil overall but not evenly across your face. Your T-zone may get shiny quickly while your cheeks or jawline remain normal. Stick to a simple, lightweight routine.</p>
+        <p>Mostly oily with some normal or dry areas — aim for lightweight balance.</p>
         <ul>
-          <li>Use a foaming or gel cleanser to remove excess oil, followed by a toner with niacinamide or witch hazel to minimize pores.</li>
-          <li>Apply an oil-free moisturizer — yes, even oily skin needs hydration — and finish with a matte sunscreen.</li>
-          <li>A few times a week, use a clay mask or gentle exfoliant to keep pores clear.</li>
-          <li>Focus your heavier treatments (like retinol or exfoliants) only where needed, not all over your face.</li>
+          <li>Use foaming cleansers and oil-free moisturizers.</li>
+          <li>Use mattifying sunscreen and targeted treatments on oily zones.</li>
         </ul>
-        <p><strong>Popular Picks:</strong> CeraVe Foaming Cleanser, Paula’s Choice Niacinamide Booster, COSRX Oil-Free Moisturizer, and Supergoop! Matte Screen SPF 40.</p>
+        <p><strong>Popular Picks:</strong> CeraVe Foaming Cleanser, Paula’s Choice Niacinamide Booster, Supergoop! Matte Screen SPF 40.</p>
       `
     };
 
-    //Display result:
-    if(results[type]) {
-        resultDiv.innerHTML = results[type];
+    // Display result in card format
+    if (results[type]) {
+      resultDiv.innerHTML = results[type];
     } else {
-        resultDiv.innerHTML = `<p>Sorry, we couldn't determine your skin type. Please retake the quiz.</p>`; 
+      resultDiv.innerHTML = `<p>Sorry, we couldn't determine your skin type. Please retake the quiz.</p>`;
     }
   </script>
-  
-  <button onclick="window.location.href='welcome.html'">Back to Welcome Page</button>
-
 </body>
 </html>
