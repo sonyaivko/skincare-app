@@ -1,4 +1,46 @@
-// ====== CONFIG ======
+const results = {
+  dry: `
+    <h2>Dry Skin</h2>
+    <p>If most of your answers point to dry skin, your skin produces less natural oil and can often feel tight, rough, or flaky, especially in colder weather. The key is to restore and lock in moisture.</p>
+    <ul>
+      <li>Start your day with a gentle, creamy cleanser that won’t strip away hydration, followed by a toner or essence rich in hyaluronic acid or glycerin.</li>
+      <li>Use a thick, nourishing moisturizer and finish with a hydrating sunscreen.</li>
+      <li>At night, cleanse again softly, apply a hyaluronic-acid or niacinamide serum, and seal everything in with a richer cream or an overnight mask.</li>
+      <li>A few drops of facial oil in winter can make a big difference.</li>
+    </ul>
+    <p>Your lifestyle can also aid in making your skin better!</p>
+    <ul>
+      <li>Drink plenty of water, avoid long hot showers, and consider using a humidifier.</li>
+      <li>Foods rich in healthy fats like salmon, avocado, and nuts help your skin from within.</li>
+    </ul>
+    <p><strong>Popular picks:</strong> CeraVe Hydrating Cleanser, Neutrogena Hydro Boost Gel Cream, The Ordinary Hyaluronic Acid Serum, EltaMD UV Daily SPF 40.</p>
+  `,
+  oily: `
+    <h2>Oily Skin</h2>
+    <p>If your answers lean toward oily skin, your skin naturally produces more sebum, leading to shine and occasional breakouts. The goal is to balance oil without stripping the skin.</p>
+    <ul>
+      <li>Use a foaming or gel-based cleanser to remove excess oil, followed by a lightweight, oil-free moisturizer to keep your skin hydrated without heaviness.</li>
+      <li>Always wear sunscreen; many matte finishes work well for oily skin.</li>
+      <li>At night, double-cleanse if you wear makeup and apply a serum containing niacinamide or salicylic acid to reduce oil buildup and minimize pores.</li>
+      <li>Exfoliate 2–3 times a week with a gentle BHA to prevent clogged pores, and try to avoid touching your face throughout the day.</li>
+    </ul>
+    <p>A balanced diet, regular exercise, and stress management all help regulate oil production.</p>
+    <p><strong>Popular picks:</strong> La Roche-Posay Effaclar Gel Cleanser, CeraVe Foaming Cleanser, The Ordinary Niacinamide 10% + Zinc, COSRX Oil-Free Moisturizer, Supergoop! Unseen SPF 40.</p>
+  `,
+  combo: `
+    <h2>Combination Skin</h2>
+    <p>If you selected mostly combination-type answers, your skin behaves differently in different areas: oily on the T-zone (forehead, nose, chin) and dry on the cheeks or jawline. The goal is to maintain balance.</p>
+    <ul>
+      <li>Choose a gentle, low-foam cleanser that removes oil but doesn’t dry out your skin.</li>
+      <li>Apply a light, hydrating moisturizer in the morning and use a richer cream only on dry areas at night.</li>
+      <li>Layering different products for different zones can be very effective — for example, mattifying gel on the T-zone and a soothing cream on the cheeks.</li>
+      <li>Once or twice a week, exfoliate gently to remove buildup and use clay masks on oily areas and hydrating masks elsewhere.</li>
+      <li>Keep your routine flexible with the seasons — your skin may act more dry in winter and more oily in summer.</li>
+    </ul>
+    <p><strong>Popular picks:</strong> CeraVe Hydrating Foam Cleanser, Paula’s Choice Pore-Refining Toner, Neutrogena Hydro Boost Water Gel, Laneige Cream Skin Refiner, Eucerin Oil Control SPF 50.</p>
+  `,
+};
+
 const MODELS_URI = "./models";
 await faceapi.nets.tinyFaceDetector.loadFromUri(MODELS_URI);
 
@@ -8,27 +50,6 @@ const overlay = document.getElementById("overlay");
 const scanBtn = document.getElementById("scan-face-btn");
 const videoBox = document.getElementById("video-container");
 const seeResultBtn = document.getElementById("see-result-btn");
-
-// Suggestions to show later (you can edit wording anytime)
-const SUGGESTIONS = {
-  oily: `Oily skin.
-- Cleanser: gentle foaming/gel (AM/PM)
-- Actives: niacinamide, BHA 2–3×/week
-- Moisturizer: light gel-cream, non-comedogenic
-- SPF: matte/gel SPF 30+`,
-
-  combination: `Combination skin (T-zone shine).
-- Cleanser: gentle gel
-- Zone care: BHA on T-zone; hydrating serum (HA) on cheeks
-- Moisturizer: light for T-zone, richer on dry areas
-- SPF: lightweight SPF 30+`,
-
-  dry: `Dry skin.
-- Cleanser: creamy/milky
-- Hydrators: HA, ceramides; gentle lactic weekly
-- Moisturizer: rich cream (occlusive at night if needed)
-- SPF: moisturizing SPF 30+`,
-};
 
 let modelsLoaded = false;
 let loopId = null;
@@ -153,10 +174,11 @@ async function runScanLoop() {
       Math.max(14, y - 8)
     );
 
-    // Save result for result page
     localStorage.setItem("skinType", skinType);
     localStorage.setItem("shinePct", (ratio * 100).toFixed(1));
-    localStorage.setItem("suggestions", SUGGESTIONS[skinType] || "");
+
+    const htmlText = results[skinType === "combination" ? "combo" : skinType];
+    localStorage.setItem("skinDescription", htmlText);
 
     // Show “See Result” button
     seeResultBtn.style.display = "inline-block";
