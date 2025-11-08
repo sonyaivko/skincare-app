@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome - Make Skin Better</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <h1 id="welcome-message">Welcome!</h1>
+      <p>Glad to have you back!</p>
+      <button id="survey-btn">Take the Skin Questionnaire</button>
+      <button id="logout-btn">Log Out</button>
+    </main>
+
+    <script type="module">
+      import { app } from "./firebase-init.js";
+      import {
+        getAuth,
+        onAuthStateChanged,
+        signOut,
+      } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+      const auth = getAuth(app);
+      const message = document.getElementById("welcome-message");
+      const logoutBtn = document.getElementById("logout-btn");
+      const surveyBtn = document.getElementById("survey-btn");
+
+      // Check if the user is logged in
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          const name = user.displayName || user.email;
+          message.textContent = `Welcome, ${name}!`;
+        } else {
+          // Redirect to login if not logged in
+          window.location.href = "index.html";
+        }
+      });
+
+      // Redirect to questionnaire page
+      surveyBtn.addEventListener("click", () => {
+        window.location.href = "questionnaire.html";
+      });
+
+      // Log out
+      logoutBtn.addEventListener("click", async () => {
+        await signOut(auth);
+        window.location.href = "index.html";
+      });
+    </script>
+  </body>
+</html>
