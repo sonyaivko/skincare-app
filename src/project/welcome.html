@@ -10,8 +10,13 @@
     <main>
       <h1 id="welcome-message">Welcome!</h1>
       <p>Glad to have you back!</p>
+
+      <!-- Existing buttons -->
       <button id="survey-btn">Take the Skin Questionnaire</button>
       <button id="logout-btn">Log Out</button>
+
+      <!-- 🆕 New button for face scan -->
+      <button id="scan-face-btn">Scan Face</button>
     </main>
 
     <script type="module">
@@ -26,6 +31,7 @@
       const message = document.getElementById("welcome-message");
       const logoutBtn = document.getElementById("logout-btn");
       const surveyBtn = document.getElementById("survey-btn");
+      const scanBtn = document.getElementById("scan-face-btn"); // 👈 added
 
       // Check if the user is logged in
       onAuthStateChanged(auth, (user) => {
@@ -33,7 +39,6 @@
           const name = user.displayName || user.email;
           message.textContent = `Welcome, ${name}!`;
         } else {
-          // Redirect to login if not logged in
           window.location.href = "index.html";
         }
       });
@@ -47,6 +52,19 @@
       logoutBtn.addEventListener("click", async () => {
         await signOut(auth);
         window.location.href = "index.html";
+      });
+
+      // 🆕 Temporary Scan Face logic
+      scanBtn.addEventListener("click", () => {
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then((stream) => {
+            console.log("Camera enabled — face scan feature coming soon!");
+            // Later: show video preview & run face-api detection here
+          })
+          .catch((err) => {
+            console.error("Camera permission denied:", err);
+          });
       });
     </script>
   </body>
