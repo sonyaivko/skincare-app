@@ -1,4 +1,3 @@
-// MSK-main.js
 const { app, BrowserWindow, nativeImage } = require("electron");
 const path = require("path");
 const express = require("express");
@@ -8,7 +7,6 @@ let server;
 
 app.setName("Make Skin Better");
 
-// ✅ point to src/build now
 const devIconPath = path.join(__dirname, "src", "build", "icon.png");
 
 try {
@@ -33,7 +31,7 @@ function createWindow() {
     width: 1200,
     height: 800,
     title: "Make Skin Better",
-    icon: devIconPath, // Win/Linux dev icon; mac uses Dock/app bundle
+    icon: devIconPath,
     webPreferences: {
       contextIsolation: true,
       sandbox: true,
