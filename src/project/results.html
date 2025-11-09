@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Your Skin Type</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="card">
-    <h4>Your Result:</h4>
-    <div id="results"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Your Skin Type</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="card">
+      <h4>Your Result:</h4>
+      <div id="results"></div>
 
-    <button class="back-button" onclick="window.location.href='welcome.html'">
-      Back to Welcome Page
-    </button>
-  </div>
+      <button class="back-button" onclick="window.location.href='welcome.html'">
+        Back to Welcome Page
+      </button>
+    </div>
 
-  <script>
-    // Retrieve stored result
-    const params = new URLSearchParams(window.location.search);
-    const type = params.get("type") || localStorage.getItem("skinType");
-    const resultDiv = document.getElementById("results");
+    <script>
+      // Retrieve stored result
+      const params = new URLSearchParams(window.location.search);
+      const type = params.get("type") || localStorage.getItem("skinType");
+      const resultDiv = document.getElementById("results");
 
-    // All possible result messages
-    const results = {
-      dry: `
+      // All possible result messages
+      const results = {
+        dry: `
        <h2>Dry Skin</h2>
       <p>Your skin produces less natural oil and can often feel tight, rough, or flaky, especially in colder weather. The key is to restore and lock in moisture.</p>
       <ul>
@@ -39,7 +39,7 @@
       </ul>
     <p><strong>Popular picks:</strong> CeraVe Hydrating Cleanser, Neutrogena Hydro Boost Gel Cream, The Ordinary Hyaluronic Acid Serum, EltaMD UV Daily SPF 40.</p>
   `,
-      oily: `
+        oily: `
         <h2>Oily Skin</h2>
     <p>Your skin naturally produces more sebum, leading to shine and occasional breakouts. The goal is to balance oil without stripping the skin.</p>
     <ul>
@@ -51,7 +51,7 @@
     <p>A balanced diet, regular exercise, and stress management all help regulate oil production.</p>
     <p><strong>Popular picks:</strong> La Roche-Posay Effaclar Gel Cleanser, CeraVe Foaming Cleanser, The Ordinary Niacinamide 10% + Zinc, COSRX Oil-Free Moisturizer, Supergoop! Unseen SPF 40.</p>
     `,
-      combo: `
+        combo: `
         <h2>Combination Skin</h2>
     <p>Your skin behaves differently in different areas: oily on the T-zone (forehead, nose, chin) and dry on the cheeks or jawline. The goal is to maintain balance.</p>
     <ul>
@@ -63,7 +63,7 @@
     </ul>
     <p><strong>Popular picks:</strong> CeraVe Hydrating Foam Cleanser, Paula’s Choice Pore-Refining Toner, Neutrogena Hydro Boost Water Gel, Laneige Cream Skin Refiner, Eucerin Oil Control SPF 50.</p>
     `,
-      "dry-oily": `
+        "dry-oily": `
         <h2>Dry + Oily Skin</h2>
         <p>Your skin is dry in some spots and oily in others — focus on balance.</p>
         <ul>
@@ -73,7 +73,7 @@
         </ul>
         <p><strong>Popular Picks:</strong> CeraVe Hydrating Foaming Cleanser, Neutrogena Hydro Boost, EltaMD UV Clear SPF 46.</p>
       `,
-      "dry-combo": `
+        "dry-combo": `
         <h2>Dry + Combination Skin</h2>
         <p>Mostly dry, but with some oiliness — focus on deep hydration and balance.</p>
         <ul>
@@ -83,7 +83,7 @@
         </ul>
         <p><strong>Popular Picks:</strong> La Roche-Posay Toleriane, COSRX Hydrium Watery Toner, CeraVe Moisturizing Cream.</p>
       `,
-      "oily-combo": `
+        "oily-combo": `
         <h2>Oily + Combination Skin</h2>
         <p>Mostly oily with some normal or dry areas — aim for lightweight balance.</p>
         <ul>
@@ -91,15 +91,15 @@
           <li>Use mattifying sunscreen and targeted treatments on oily zones.</li>
         </ul>
         <p><strong>Popular Picks:</strong> CeraVe Foaming Cleanser, Paula’s Choice Niacinamide Booster, Supergoop! Matte Screen SPF 40.</p>
-      `
-    };
+      `,
+      };
 
-    // Display result in card format
-    if (results[type]) {
-      resultDiv.innerHTML = results[type];
-    } else {
-      resultDiv.innerHTML = `<p>Sorry, we couldn't determine your skin type. Please retake the quiz.</p>`;
-    }
-  </script>
-</body>
+      // Display result in card format
+      if (results[type]) {
+        resultDiv.innerHTML = results[type];
+      } else {
+        resultDiv.innerHTML = `<p>Sorry, we couldn't determine your skin type. Please retake the quiz.</p>`;
+      }
+    </script>
+  </body>
 </html>

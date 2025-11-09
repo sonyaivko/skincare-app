@@ -44,7 +44,6 @@ const results = {
 const MODELS_URI = "./models";
 await faceapi.nets.tinyFaceDetector.loadFromUri(MODELS_URI);
 
-// ====== DOM ======
 const video = document.getElementById("video");
 const overlay = document.getElementById("overlay");
 const scanBtn = document.getElementById("scan-face-btn");
@@ -54,16 +53,14 @@ const seeResultBtn = document.getElementById("see-result-btn");
 let modelsLoaded = false;
 let loopId = null;
 
-// ====== Load model(s) once ======
+// Load model(s)
 async function loadModelsOnce() {
   if (modelsLoaded) return;
   await faceapi.nets.tinyFaceDetector.loadFromUri(MODELS_URI);
-  // If you later need landmarks:
-  // await faceapi.nets.faceLandmark68Net.loadFromUri(MODELS_URI);
   modelsLoaded = true;
 }
 
-// ====== Start webcam ======
+// Start webcam
 async function startWebCam() {
   const stream = await navigator.mediaDevices.getUserMedia({
     video: {
@@ -78,7 +75,7 @@ async function startWebCam() {
   await video.play();
 }
 
-// ====== Shine heuristic ======
+// Shine heuristic
 function brightRatioInRegion(ctx, sx, sy, sw, sh) {
   const img = ctx.getImageData(sx, sy, sw, sh);
   const data = img.data;
@@ -116,7 +113,7 @@ function classifyFromBrightRatio(r) {
   return "dry";
 }
 
-// ====== Main scan loop (detect face + analyze shine) ======
+// Main scan loop (detect face + analyze shine)
 async function runScanLoop() {
   const ctx = overlay.getContext("2d");
   overlay.width = video.videoWidth || 600;

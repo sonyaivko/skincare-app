@@ -1,25 +1,24 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Nunito:wght@400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Marcellus&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Nunito:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Marcellus&display=swap");
 
 /* global */
 :root {
   --navy: #003074;
   --orange: #cf6f34;
   --light-bg: #faf9f8;
-  --text-dark: #1B1B1B;
-  --border: #E0E0E0;
+  --text-dark: #1b1b1b;
+  --border: #e0e0e0;
   --radius: 12px;
 }
 
 .site-title {
-    text-align: center;
-    color: black; 
-    font-size: 2.1rem;
-    font-weight: 550;
-    font-style: italic; /* italic */
-    margin-bottom: 1rem;
-    letter-spacing: 0.3px;
+  text-align: center;
+  color: black;
+  font-size: 2.1rem;
+  font-weight: 550;
+  font-style: italic;
+  margin-bottom: 1rem;
+  letter-spacing: 0.3px;
 }
 
 /*lotus background*/
@@ -35,17 +34,17 @@ body:not(.no-lotus)::before {
 }
 
 body {
-    font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(135deg, #cf6f34 0%, #003074 100%);
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-    min-height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 3rem;
+  font-family: "Montserrat", sans-serif;
+  background: linear-gradient(135deg, #cf6f34 0%, #003074 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 3rem;
 }
 
 /* header */
@@ -54,51 +53,53 @@ header {
   color: white;
   padding: 1rem 2rem;
   text-align: center;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   letter-spacing: 1px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* question container */
-#q-container, .content {
+#q-container,
+.content {
   max-width: 700px;
   margin: 2rem auto;
   background: rgba(255, 255, 255, 0.6);
   padding: 2rem 2.5rem;
   border-radius: var(--radius);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
-
 .card {
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    max-width: 700px;
-    width: 100%;
-    border-radius: 12px;
-    padding: 2rem 2.5rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    text-align: left;
-    animation: fadeUp 0.6s ease-out;
-    position: relative;
-    z-index: 1;
-  }
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  max-width: 700px;
+  width: 100%;
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  text-align: left;
+  animation: fadeUp 0.6s ease-out;
+  position: relative;
+  z-index: 1;
+}
 
-  @keyframes fadeUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /* headings */
-h1, h2, h3 {
-    font-family: 'Montserrat', sans-serif;
+h1,
+h2,
+h3 {
+  font-family: "Montserrat", sans-serif;
 }
 
 h1 {
@@ -114,20 +115,19 @@ h3 {
 h4 {
   font-size: 1.5rem;
   margin-bottom: 0.5 rem;
-
 }
 
-h4{
-  font-family: 'Marcellus', sans-serif;
+h4 {
+  font-family: "Marcellus", sans-serif;
   text-align: center;
-  font-weight: 50; 
+  font-weight: 50;
   letter-spacing: 0.2px;
 }
-h5{
+h5 {
   font-size: 1.5rem;
-  font-family: 'Marcellus', sans-serif;
+  font-family: "Marcellus", sans-serif;
   text-align: left;
-  font-weight: 50; 
+  font-weight: 50;
   letter-spacing: 0.5px;
   margin-bottom: 0.5 rem;
 }
@@ -168,7 +168,7 @@ button {
   border-radius: var(--radius);
   cursor: pointer;
   transition: 0.3s;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 button:hover {
@@ -209,18 +209,19 @@ button:hover {
 /*adding formatting to bullet points*/
 #results ul {
   list-style-type: disc;
-  margin-left: 1.5rem; 
+  margin-left: 1.5rem;
   padding-left: 0;
 }
 
 #results li {
-  margin-bottom: 0.6rem; 
-  line-height: 1.5;      
+  margin-bottom: 0.6rem;
+  line-height: 1.5;
 }
 
 /* responsive */
 @media (max-width: 600px) {
-  #q-container, .content {
+  #q-container,
+  .content {
     padding: 1.5rem;
   }
 
