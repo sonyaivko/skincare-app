@@ -1,7 +1,7 @@
 const results = {
   dry: `
     <h2>Dry Skin</h2>
-    <p>If most of your answers point to dry skin, your skin produces less natural oil and can often feel tight, rough, or flaky, especially in colder weather. The key is to restore and lock in moisture.</p>
+    <p>Your skin produces less natural oil and can often feel tight, rough, or flaky, especially in colder weather. The key is to restore and lock in moisture.</p>
     <ul>
       <li>Start your day with a gentle, creamy cleanser that won’t strip away hydration, followed by a toner or essence rich in hyaluronic acid or glycerin.</li>
       <li>Use a thick, nourishing moisturizer and finish with a hydrating sunscreen.</li>
@@ -17,7 +17,7 @@ const results = {
   `,
   oily: `
     <h2>Oily Skin</h2>
-    <p>If your answers lean toward oily skin, your skin naturally produces more sebum, leading to shine and occasional breakouts. The goal is to balance oil without stripping the skin.</p>
+    <p>Your skin naturally produces more sebum, leading to shine and occasional breakouts. The goal is to balance oil without stripping the skin.</p>
     <ul>
       <li>Use a foaming or gel-based cleanser to remove excess oil, followed by a lightweight, oil-free moisturizer to keep your skin hydrated without heaviness.</li>
       <li>Always wear sunscreen; many matte finishes work well for oily skin.</li>
@@ -29,7 +29,7 @@ const results = {
   `,
   combo: `
     <h2>Combination Skin</h2>
-    <p>If you selected mostly combination-type answers, your skin behaves differently in different areas: oily on the T-zone (forehead, nose, chin) and dry on the cheeks or jawline. The goal is to maintain balance.</p>
+    <p>Your skin behaves differently in different areas: oily on the T-zone (forehead, nose, chin) and dry on the cheeks or jawline. The goal is to maintain balance.</p>
     <ul>
       <li>Choose a gentle, low-foam cleanser that removes oil but doesn’t dry out your skin.</li>
       <li>Apply a light, hydrating moisturizer in the morning and use a richer cream only on dry areas at night.</li>
