@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome - Make Skin Better</title>
+    <link rel="stylesheet" href="./style.css" />
+
+    <!-- Face scan scripts -->
+    <script defer src="./face-api.min.js"></script>
+    <script defer type="module" src="./script.js"></script>
+  </head>
+  <body>
+    <div class="card">
+    <h1 class="site-title">Make Skin Better</h1>
+    <main>
+      <h5 id="welcome-message">Welcome!</h5>
+      <p>Glad to have you back!</p>
+      <button id="survey-btn">Take the Skin Questionnaire</button>
+      <br></br>
+      <button id="scan-face-btn">Scan Face</button>
+      <br></br>
+      <button id="logout-btn">Log Out</button>
+      <button id="see-result-btn" style="display: none; margin-top: 12px">
+        See Result
+      </button>
+
+      <!-- Video area (hidden until user clicks Scan Face) -->
+      <div id="video-container" style="display: none; margin-top: 12px">
+        <video
+          id="video"
+          width="600"
+          height="450"
+          autoplay
+          muted
+          playsinline
+        ></video>
+        <canvas id="overlay" width="600" height="450"></canvas>
+      </div>
+    </main>
+
+    <script type="module">
+      import { app } from "./firebase-init.js";
+      import {
+        getAuth,
+        onAuthStateChanged,
+        signOut,
+      } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+      const auth = getAuth(app);
+      const message = document.getElementById("welcome-message");
+      const logoutBtn = document.getElementById("logout-btn");
+      const surveyBtn = document.getElementById("survey-btn");
+
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          const name = user.displayName || user.email;
+          message.textContent = `Welcome, ${name}!`;
+        } else {
+          window.location.href = "index.html";
+        }
+      });
+
+      // Go to questionnaire
+      // NOTE: make sure the filename matches your actual file ("questionnaire.html" vs "questionaire.html")
+      surveyBtn.addEventListener("click", () => {
+        window.location.href = "questionnaire.html";
+      });
+
+      // Log out
+      logoutBtn.addEventListener("click", async () => {
+        await signOut(auth);
+        window.location.href = "index.html";
+      });
+
+      // No scan-face handler here — script.js handles scanning.
+    </script>
+    </div>
+  </body>
+</html>

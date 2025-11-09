@@ -1,0 +1,13 @@
+.DS_Store
+node_modules/
+dist/
+out/
+release/
+*.dmg
+*.exe
+*.app
+*.AppImage
+*.zip
+*.7z
+*.blockmap
+.env

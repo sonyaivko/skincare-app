@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Skin Type</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="card">
+    <h4>Your Result:</h4>
+    <div id="results"></div>
+
+    <button class="back-button" onclick="window.location.href='welcome.html'">
+      Back to Welcome Page
+    </button>
+  </div>
+
+  <script>
+    // Retrieve stored result
+    const params = new URLSearchParams(window.location.search);
+    const type = params.get("type") || localStorage.getItem("skinType");
+    const resultDiv = document.getElementById("results");
+
+    // All possible result messages
+    const results = {
+      dry: `
+       <h2>Dry Skin</h2>
+      <p>Your skin produces less natural oil and can often feel tight, rough, or flaky, especially in colder weather. The key is to restore and lock in moisture.</p>
+      <ul>
+        <li>Start your day with a gentle, creamy cleanser that won’t strip away hydration, followed by a toner or essence rich in hyaluronic acid or glycerin.</li>
+        <li>Use a thick, nourishing moisturizer and finish with a hydrating sunscreen.</li>
+        <li>At night, cleanse again softly, apply a hyaluronic-acid or niacinamide serum, and seal everything in with a richer cream or an overnight mask.</li>
+        <li>A few drops of facial oil in winter can make a big difference.</li>
+      </ul>
+      <p>Your lifestyle can also aid in making your skin better!</p>
+      <ul>
+        <li>Drink plenty of water, avoid long hot showers, and consider using a humidifier.</li>
+        <li>Foods rich in healthy fats like salmon, avocado, and nuts help your skin from within.</li>
+      </ul>
+    <p><strong>Popular picks:</strong> CeraVe Hydrating Cleanser, Neutrogena Hydro Boost Gel Cream, The Ordinary Hyaluronic Acid Serum, EltaMD UV Daily SPF 40.</p>
+  `,
+      oily: `
+        <h2>Oily Skin</h2>
+    <p>Your skin naturally produces more sebum, leading to shine and occasional breakouts. The goal is to balance oil without stripping the skin.</p>
+    <ul>
+      <li>Use a foaming or gel-based cleanser to remove excess oil, followed by a lightweight, oil-free moisturizer to keep your skin hydrated without heaviness.</li>
+      <li>Always wear sunscreen; many matte finishes work well for oily skin.</li>
+      <li>At night, double-cleanse if you wear makeup and apply a serum containing niacinamide or salicylic acid to reduce oil buildup and minimize pores.</li>
+      <li>Exfoliate 2–3 times a week with a gentle BHA to prevent clogged pores, and try to avoid touching your face throughout the day.</li>
+    </ul>
+    <p>A balanced diet, regular exercise, and stress management all help regulate oil production.</p>
+    <p><strong>Popular picks:</strong> La Roche-Posay Effaclar Gel Cleanser, CeraVe Foaming Cleanser, The Ordinary Niacinamide 10% + Zinc, COSRX Oil-Free Moisturizer, Supergoop! Unseen SPF 40.</p>
+    `,
+      combo: `
+        <h2>Combination Skin</h2>
+    <p>Your skin behaves differently in different areas: oily on the T-zone (forehead, nose, chin) and dry on the cheeks or jawline. The goal is to maintain balance.</p>
+    <ul>
+      <li>Choose a gentle, low-foam cleanser that removes oil but doesn’t dry out your skin.</li>
+      <li>Apply a light, hydrating moisturizer in the morning and use a richer cream only on dry areas at night.</li>
+      <li>Layering different products for different zones can be very effective — for example, mattifying gel on the T-zone and a soothing cream on the cheeks.</li>
+      <li>Once or twice a week, exfoliate gently to remove buildup and use clay masks on oily areas and hydrating masks elsewhere.</li>
+      <li>Keep your routine flexible with the seasons — your skin may act more dry in winter and more oily in summer.</li>
+    </ul>
+    <p><strong>Popular picks:</strong> CeraVe Hydrating Foam Cleanser, Paula’s Choice Pore-Refining Toner, Neutrogena Hydro Boost Water Gel, Laneige Cream Skin Refiner, Eucerin Oil Control SPF 50.</p>
+    `,
+      "dry-oily": `
+        <h2>Dry + Oily Skin</h2>
+        <p>Your skin is dry in some spots and oily in others — focus on balance.</p>
+        <ul>
+          <li>Use a mild gel cleanser and lightweight hydrating moisturizer.</li>
+          <li>Apply richer cream only to dry zones.</li>
+          <li>Avoid over-drying or heavy products.</li>
+        </ul>
+        <p><strong>Popular Picks:</strong> CeraVe Hydrating Foaming Cleanser, Neutrogena Hydro Boost, EltaMD UV Clear SPF 46.</p>
+      `,
+      "dry-combo": `
+        <h2>Dry + Combination Skin</h2>
+        <p>Mostly dry, but with some oiliness — focus on deep hydration and balance.</p>
+        <ul>
+          <li>Use creamy cleansers and hydrating toners.</li>
+          <li>Layer hyaluronic serum and richer moisturizer on dry zones.</li>
+          <li>Avoid over-exfoliating.</li>
+        </ul>
+        <p><strong>Popular Picks:</strong> La Roche-Posay Toleriane, COSRX Hydrium Watery Toner, CeraVe Moisturizing Cream.</p>
+      `,
+      "oily-combo": `
+        <h2>Oily + Combination Skin</h2>
+        <p>Mostly oily with some normal or dry areas — aim for lightweight balance.</p>
+        <ul>
+          <li>Use foaming cleansers and oil-free moisturizers.</li>
+          <li>Use mattifying sunscreen and targeted treatments on oily zones.</li>
+        </ul>
+        <p><strong>Popular Picks:</strong> CeraVe Foaming Cleanser, Paula’s Choice Niacinamide Booster, Supergoop! Matte Screen SPF 40.</p>
+      `
+    };
+
+    // Display result in card format
+    if (results[type]) {
+      resultDiv.innerHTML = results[type];
+    } else {
+      resultDiv.innerHTML = `<p>Sorry, we couldn't determine your skin type. Please retake the quiz.</p>`;
+    }
+  </script>
+</body>
+</html>

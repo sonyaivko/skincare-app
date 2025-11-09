@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sign Up - Make Skin Better</title>
+  </head>
+  <body>
+    <div class="card">
+    <main>
+      <h1>Sign Up</h1>
+
+      <form id="signupForm">
+        <p id="message" style="color:red; margin-top:10px;"></p>
+
+        <div>
+          <label for="firstname">First Name</label><br />
+          <input type="text" id="firstname" name="firstname" required />
+        </div>
+
+        <div>
+          <label for="lastname">Last Name</label><br />
+          <input type="text" id="lastname" name="lastname" required />
+        </div>
+
+        <div>
+          <label for="email">Email</label><br />
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div>
+          <label for="password">Password</label><br />
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <div>
+          <label for="confirm-password">Confirm Password</label><br />
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirm-password"
+            required
+          />
+        </div>
+        <br></br>
+
+        <div>
+          <button type="submit">Sign Up</button>
+        </div>
+      </form>
+
+      <p>Already have an account? <a href="./index.html">Log In</a></p>
+    </main>
+
+
+    <script type="module">
+
+      //Import Firebase functions and initialize the app 
+      import { app } from './firebase-init.js';
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+        updateProfile
+      } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+      //Initialize Firebase Authentication
+      const auth = getAuth(app);
+
+      //Getting form and message 
+      const form = document.getElementById("signupForm");
+      const message = document.getElementById("message");
+
+      //Listen for sign-up form submission 
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        //Get user input values 
+        const firstName = document.getElementById("firstname").value.trim();
+        const lastName = document.getElementById("lastname").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirm-password").value;
+
+        // Validation that passwords match
+        if (password !== confirmPassword) {
+          message.textContent = "Passwords do not match.";
+          return;
+        }
+
+        try {
+          // Create user
+          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+          const user = userCredential.user;
+
+          // Add first + last name to user profile
+          await updateProfile(user, {
+            displayName: `${firstName} ${lastName}`
+          });
+
+          //Success 
+          message.style.color = "green";
+          message.textContent = "Account created! Redirecting...";
+          setTimeout(() => window.location.href = "index.html", 1500);
+        } catch (error) {
+          //Error
+          message.style.color = "red";
+          message.textContent = error.message;
+        }
+      });
+    </script>
+    </div>
+  </body>
+</html>

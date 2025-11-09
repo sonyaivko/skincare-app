@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Responsive meta tag for mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Make Skin Better</title>
+  </head>
+  <body>
+    <div class="card">
+    <h1 class="site-title">Make Skin Better</h1>
+    <h4>Start your journey.</h4>
+    <main>
+      <h2>Log In</h2>
+
+      <form id="loginForm">
+        <p id="message" style="color: red; margin-top: 10px"></p>
+        <div>
+          <label for="username">Username</label><br />
+          <input type="email" id="username" name="username" required />
+        </div>
+
+        <div>
+          <label for="password">Password</label><br />
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <div>
+          <br></br>
+          <button type="submit">Log In</button>
+        </div>
+      </form>
+
+      <p>Don't have an account? <a href="./signup.html">Create one</a></p>
+    </main>
+
+    <script type="module">
+      // Import
+      import { app } from "./firebase-init.js";
+      import {
+        getAuth,
+        signInWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+      const auth = getAuth(app);
+      const form = document.getElementById("loginForm");
+      const message = document.getElementById("message");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        try {
+          await signInWithEmailAndPassword(auth, email, password);
+          message.style.color = "green";
+          message.textContent = "Login successful! Redirecting...";
+          setTimeout(() => (window.location.href = "welcome.html"), 1000);
+        } catch (error) {
+          message.style.color = "red";
+          message.textContent = error.message;
+        }
+      });
+    </script>
+    </div>
+  </body>
+</html>
